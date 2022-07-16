@@ -22,11 +22,12 @@ class ExtractAssetsToSeparateDirectory
         $this->ensureAssetDirectoryExists();
 
         (new Filesystem())->copyDirectory(
-            $this->appPath.'/public',
-            $this->buildPath.'/assets'
+            $this->appPath . '/public',
+            $this->buildPath . '/assets'
         );
 
-        foreach (AssetFiles::get($this->appPath.'/public') as $file) {
+        foreach (AssetFiles::get($this->appPath . '/public') as $file) {
+            dump('Copied ' . $file);
             @unlink($file->getRealPath());
         }
     }
@@ -38,12 +39,12 @@ class ExtractAssetsToSeparateDirectory
      */
     protected function ensureAssetDirectoryExists()
     {
-        if ($this->files->isDirectory($this->buildPath.'/assets')) {
-            $this->files->deleteDirectory($this->buildPath.'/assets');
+        if ($this->files->isDirectory($this->buildPath . '/assets')) {
+            $this->files->deleteDirectory($this->buildPath . '/assets');
         }
 
         $this->files->makeDirectory(
-            $this->buildPath.'/assets',
+            $this->buildPath . '/assets',
             0755,
             true
         );
